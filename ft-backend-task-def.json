@@ -1,0 +1,18 @@
+{
+    "family": "ft-backend",
+    "containerDefinitions": [
+        {
+            "name": "ft-backend-definition",
+            "image": "521709977090.dkr.ecr.us-east-1.amazonaws.com/fluenttruant:ft-docker-dev",
+            "cpu": 10,
+            "memory": 500,
+            "portMappings": [
+                {
+                    "containerPort": 8000,
+                    "hostPort": 8000
+                }
+            ],
+            "essential": true
+        }
+    ]
+}

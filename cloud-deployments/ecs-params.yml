@@ -1,0 +1,9 @@
+version: 1
+task_definition:
+  ft_frontend:
+    wordpress:
+      cpu_shares: 100
+      mem_limit: 524288000
+    server:
+      cpu_shares: 100
+      mem_limit: 524288000

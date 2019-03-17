@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+############################
+#   Setup node container
+############################
+  graphql:
+    image: ft-docker-dev:latest
+    container_name: graphql
+    volumes:
+      - ../ft_graphql:/usr/src/app/
+    ports:
+      - '8000:8000'
+    command: node app.js
+
+############################
+#   Setup client container
+############################
+  ft_frontend:
+    ports:
+      - '80:80'
+    image: ft_frontend:latest
+    container_name: frontend
+    volumes:
+      - ../fluenttruant/frontend/src:/usr/src/app/src
+      - ../fluenttruant/frontend/public:/usr/src/app/public
+    links:
+      - graphql

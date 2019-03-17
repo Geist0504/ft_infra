@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+############################
+#   Setup node container
+############################
+  graphql:
+    image: 521709977090.dkr.ecr.us-east-1.amazonaws.com/ft_graphql:latest
+    container_name: graphql
+    ports:
+      - '8000:8000'
+    command: node app.js
+
+############################
+#   Setup client container
+############################
+  ft_frontend:
+    ports:
+      - '80:80'
+    image: 521709977090.dkr.ecr.us-east-1.amazonaws.com/ft_frontend:latest
+    links:
+      - graphql
