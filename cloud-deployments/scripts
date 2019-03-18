@@ -2,17 +2,34 @@ ecs-cli configure --cluster dev --default-launch-type EC2 --region us_east_1 --c
 ecs-cli configure --cluster dev --default-launch-type EC2 --region us_east_1 
 
 ecs-cli up --capability-iam
-ecs-cli configure profile --access-key AKIAJPAOQ3UCKWGQ5QEA --secret-key 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 --profile-name fluenttruant
+ecs-cli configure profile --access-key <key> --secret-key <secret> --profile-name fluenttruant
 
 ecs-cli up --keypair ./ecs.pem --capability-iam --size 2 --instance-type t2.medium --cluster-config ec2-tutorial
 
 
 aws ec2 create-key-pair --key-name ecs --query 'KeyMaterial' --output text > ecs.pem
 
-ecs-cli configure --cluster ft-dev --region us-east-1 --default-launch-type EC2 --config-name ft-dev
+ecs-cli configure --cluster ft-dev1 --region us-east-1 --default-launch-type EC2 --config-name ft-dev1
 ecs-cli up --keypair ecs --capability-iam --size 1 --instance-type t2.small --cluster-config ft-dev
 ecs-cli compose up --create-log-groups --cluster-config ft-dev
 
+ecs-cli compose  --file docker-compose.yml service up --cluster-config ft-dev 
+
+
 ecs-cli compose --file docker-compose.yml scale 2 --cluster-config ft-dev
 
-ecs-cli compose --file docker-compose.yml service up --cluster-config ft-dev
+ecs-cli compose --file docker-compose.yml service up --cluster-config ft-dev 
+
+
+ecs-cli compose --file docker-compose.yml down --cluster-config ec2-tutorial
+
+
+ecs-cli compose --file docker-compose.yml down --cluster-config ec2-tutorial
+
+
+#####CLEANUP TO AVOID COSTS
+ecs-cli compose --file docker-compose.yml service rm --cluster-config ft-dev
+ecs-cli down --force --cluster-config ft-dev
+
+##### AND START BACK up
+ecs-cli compose up --create-log-groups --cluster-config ft-dev

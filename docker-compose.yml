@@ -22,7 +22,7 @@ services:
     image: ft_frontend:latest
     container_name: frontend
     volumes:
-      - ../fluenttruant/frontend/src:/usr/src/app/src
-      - ../fluenttruant/frontend/public:/usr/src/app/public
+      - ../fluenttruant/frontend/src:/var/www/src
+      - ../fluenttruant/frontend/public:/var/www/public
     links:
       - graphql
